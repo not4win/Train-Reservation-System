@@ -96,11 +96,14 @@ public class Create_Account extends javax.swing.JFrame {
         jLabel4.setFont(new java.awt.Font("Times New Roman", 0, 36)); // NOI18N
         jLabel4.setText("Password");
 
+        jtxt11.setFont(new java.awt.Font("Monospaced", 0, 18)); // NOI18N
         jtxt11.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jtxt11ActionPerformed(evt);
             }
         });
+
+        jtxt12.setFont(new java.awt.Font("Monospaced", 0, 18)); // NOI18N
 
         jbtn11.setFont(new java.awt.Font("Times New Roman", 0, 36)); // NOI18N
         jbtn11.setText("Create Account");
@@ -113,12 +116,14 @@ public class Create_Account extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Times New Roman", 0, 36)); // NOI18N
         jLabel2.setText("Full Name");
 
+        jtxt13.setFont(new java.awt.Font("Monospaced", 0, 18)); // NOI18N
         jScrollPane1.setViewportView(jtxt13);
         jtxt13.getAccessibleContext().setAccessibleParent(jPanel3);
 
         jLabel5.setFont(new java.awt.Font("Times New Roman", 0, 36)); // NOI18N
         jLabel5.setText("Confirm Password");
 
+        jtxt14.setFont(new java.awt.Font("Monospaced", 0, 18)); // NOI18N
         jScrollPane2.setViewportView(jtxt14);
         jtxt14.getAccessibleContext().setAccessibleParent(jPanel3);
 
@@ -212,34 +217,30 @@ public class Create_Account extends javax.swing.JFrame {
         String password="";
         String password2="";
         String username="";
-        while(true)
-        {
+        
+        
         password=jtxt12.getText();
         password2=jtxt14.getText();
         username=jtxt11.getText();
         if(password.equals(password2))
         {
             System.out.println("Password matches");
-            break;
-        }
-        else
-        {
-            JOptionPane.showMessageDialog(null,"Passwords doesnt match","Error",JOptionPane.ERROR_MESSAGE);
-            jtxt12.setText(null);
-            jtxt14.setText(null);
-        }
-        }
+           
+        
+
+        
         try
         {
             conn=DriverManager.getConnection("jdbc:derby://localhost:1527/logindb","login","login");
             PreparedStatement st=conn.prepareStatement("insert into LOGINDB(USERNAME,PASSWORD)values(?,?)");
             st.setString(1,username);
             st.setString(2, password);
-            st.executeUpdate();
-            int a=10;
+           int a= st.executeUpdate();
+           
             if(a>0)
             {
                 System.out.println("row updated");
+                  JOptionPane.showMessageDialog(null,"Account has been created successfully","CONGRATULATIONS",JOptionPane.INFORMATION_MESSAGE);
             }
             else
             {
@@ -250,6 +251,16 @@ public class Create_Account extends javax.swing.JFrame {
         {
             Logger.getLogger(Login.class.getName()).log(Level.SEVERE,null,ex);
         }
+        }
+         else
+        {
+            JOptionPane.showMessageDialog(null,"Passwords doesnt match","Error",JOptionPane.ERROR_MESSAGE);
+            jtxt12.setText(null);
+            jtxt14.setText(null);
+        }
+        
+    
+        
     }//GEN-LAST:event_jbtn11ActionPerformed
 
     private void jtxt11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtxt11ActionPerformed
